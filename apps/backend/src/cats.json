@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Whiskers",
+    "iconUrl": "http://localhost:4000/static/cats/whiskers.png",
+    "rarity": "common"
+  },
+  {
+    "name": "Mochi",
+    "iconUrl": "http://localhost:4000/static/cats/mochi.png",
+    "rarity": "common"
+  },
+  {
+    "name": "Pumpkin",
+    "iconUrl": "http://localhost:4000/static/cats/pumpkin.png",
+    "rarity": "common"
+  },
+  {
+    "name": "Luna",
+    "iconUrl": "http://localhost:4000/static/cats/luna.png",
+    "rarity": "rare"
+  },
+  {
+    "name": "Shadow",
+    "iconUrl": "http://localhost:4000/static/cats/shadow.png",
+    "rarity": "rare"
+  },
+  {
+    "name": "Cleo",
+    "iconUrl": "http://localhost:4000/static/cats/cleo.png",
+    "rarity": "rare"
+  },
+  {
+    "name": "Aurora",
+    "iconUrl": "http://localhost:4000/static/cats/aurora.png",
+    "rarity": "legendary"
+  },
+  {
+    "name": "Phantom",
+    "iconUrl": "http://localhost:4000/static/cats/phantom.png",
+    "rarity": "legendary"
+  },
+  {
+    "name": "Nebula",
+    "iconUrl": "http://localhost:4000/static/cats/nebula.png",
+    "rarity": "legendary"
+  },
+  {
+    "name": "Zephyr",
+    "iconUrl": "http://localhost:4000/static/cats/zephyr.png",
+    "rarity": "legendary"
+  }
+]
