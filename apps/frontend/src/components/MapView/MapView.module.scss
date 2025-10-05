@@ -72,6 +72,10 @@
       background: linear-gradient(to right, #4f46e5, #7c3aed);
       transform: translateY(-2px);
     }
+
+    @media screen and (max-width: 480px) {
+      width: 100%;
+    }
   }
 }
 

@@ -103,9 +103,47 @@ export class PokecatManager {
   // Data Loading
   // ----------------------
 
+  // Load the cats from the Go backend, or fallback to local JSON file if unavailable
   private async loadCatList() {
     try {
-      // Load local cats.json file
+      // Try fetching cats from Go backend
+      const response = await this.fetchCatData("http://localhost:5000/api/cats");
+
+      if (response) {
+        // If successful, use the cats from the backend
+        this.catPool = response.map((cat: { name: string; iconUrl: string }) => ({
+          name: cat.name,
+          iconUrl: cat.iconUrl,
+        }));
+
+        console.log(`Loaded ${this.catPool.length} pokecats from Go backend.`);
+      } else {
+        // If fetching from Go fails, load from local JSON file
+        await this.loadCatListFromFile();
+      }
+    } catch (err) {
+      console.error("Error fetching from Go backend, falling back to local JSON:", err);
+      await this.loadCatListFromFile();
+    }
+  }
+
+  // Use fetch API to get the cat data
+  private async fetchCatData(url: string): Promise<any | null> {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.json(); // Parse and return JSON response
+    } catch (err) {
+      console.error("Failed to fetch data:", err);
+      return null; // Return null if there is an error (e.g., Go backend is offline)
+    }
+  }
+
+  // Fallback to loading cats from local JSON file
+  private async loadCatListFromFile() {
+    try {
       const filePath = path.join(__dirname, "cats.json");
       const data = await fs.readFile(filePath, "utf-8");
       const cats = JSON.parse(data);
@@ -115,9 +153,9 @@ export class PokecatManager {
         iconUrl: c.iconUrl,
       }));
 
-      console.log(`Loaded ${this.catPool.length} pokecats from cats.json`);
+      console.log(`Loaded ${this.catPool.length} pokecats from cats.json file.`);
     } catch (err) {
-      console.error("Failed to load cat list", err);
+      console.error("Failed to load cat list from local file", err);
     }
   }
 
