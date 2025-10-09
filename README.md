@@ -35,6 +35,12 @@ database-backed persistence can be combined in a multiplayer-like environment.
 
 ---
 
+## Demo
+
+![Demo](./screenshots/journey-demo.gif)
+
+---
+
 ## Screenshots
 
 ### Gameplay 1
