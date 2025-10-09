@@ -12,7 +12,7 @@ interface Pokecat {
   name: string;
   lat: number;
   lng: number;
-  status: "wild" | "caught";
+  status: "wild" | "locked" | "caught";
   iconUrl: string;
   expiresAt: number;
   rarity: "common" | "rare" | "legendary";
@@ -65,31 +65,49 @@ export class PokecatManager {
         this.userLocations.set(socket.id, { lat, lng });
       });
 
-      // Handle catching logic
-      socket.on("catch-pokecat", ({ pokecatId, user }: { pokecatId: string; user: User }) => {
-        const index = this.pokecats.findIndex(p => p.id === pokecatId);
-
+      // Handle initial catch (lock)
+      socket.on("lock-pokecat", ({ pokecatId, user }: { pokecatId: string; user: User }) => {
+        const index = this.pokecats.findIndex((p) => p.id === pokecatId);
         if (index === -1) {
-          socket.emit("catch-result", { success: false, message: "Pokecat not found!" });
+          socket.emit("lock-result", { success: false, message: "Pokecat not found!" });
           return;
         }
+        const cat = this.pokecats[index];
+        if (cat.status !== "wild") {
+          socket.emit("lock-result", { success: false, message: "Pokecat is not available!" });
+          return;
+        }
+        this.pokecats[index].status = "locked";
+        socket.emit("lock-result", { success: true, pokecat: cat });
+        socket.broadcast.emit("pokecat-locked", { id: cat.id, lockedBy: user.name });
+      });
+
+      // Handle catch confirmation (detail view)
+      socket.on("confirm-catch", ({ pokecatId, success, user }: { pokecatId: string; success: boolean; user: User }) => {
+        const index = this.pokecats.findIndex(p => p.id === pokecatId);
+        if (index === -1) return;
 
         const cat = this.pokecats[index];
 
-        if (cat.status === "caught") {
-          socket.emit("catch-result", { success: false, message: "Pokecat has already been caught!" });
-          return;
+        if (cat.status !== "locked") return; // only locked cats can be resolved
+
+        if (success) {
+          // Finalize catch
+          this.pokecats[index].status = "caught";
+          socket.emit("confirm-result", { success: true, pokecat: cat });
+          socket.broadcast.emit("pokecat-caught", { id: cat.id, caughtBy: user.name });
+        } else {
+          // Release lock
+          this.pokecats[index].status = "wild";
+          socket.emit("confirm-result", { success: false, message: "Pokecat escaped!" });
+          this.io.emit("pokecats", this.getWildPokecats());
         }
+      });
 
-        // Immediately mark as caught (acts as lock)
-        this.pokecats[index].status = "caught";
-        console.log(`${user.name} (${user.id}) caught ${cat.name}`);
-
-        // Notify catcher
-        socket.emit("catch-result", { success: true, pokecat: cat });
-
-        // Notify others
-        socket.broadcast.emit("pokecat-caught", { id: cat.id, caughtBy: user.name });
+      // Handle catching in detail
+      socket.on("get-pokecat", ({ id }) => {
+        const cat = this.pokecats.find(p => p.id === id);
+        socket.emit("pokecat-detail", cat ?? null);
       });
 
       // Cleanup on disconnect

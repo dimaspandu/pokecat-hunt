@@ -1,32 +1,34 @@
-import { useState } from "react";
-import { type Pokecat } from "./types/pokecat";
-import MapView from "./components/MapView";
-import Sidebar from "./components/Sidebar";
-import Notification from "./components/Notification";
-import CollectionModal from "./components/CollectionModal";
+import { Routes, Route } from "react-router-dom";
+import { useGameStore } from "@/stores/useGameStore";
+import MainScene from "@/scenes/MainScene";
+import CatchScene from "@/scenes/CatchScene";
+import CollectionScene from "@/scenes/CollectionScene";
+import BackpackScene from "@/scenes/BackpackScene";
+import StoreScene from "./scenes/StoreScene";
+import ScannerScene from "./scenes/ScannerScene";
+import CreatorScene from "./scenes/CreatorScene";
+import Notification from "@/components/Notification";
+import CollectionModal from "@/components/Fragment/CollectionModal";
 
 function App() {
-  const [caughtList, setCaughtList] = useState<Pokecat[]>([]);
-  const [notification, setNotification] = useState<{
-    message: string;
-    type: "info" | "success" | "warning" | "error"
-  } | null>(null);
-
-  const [selectedPokecat, setSelectedPokecat] = useState<Pokecat | null>(null);
-
-  const openModal = (pokecat: Pokecat) => {
-    console.log("pokecat", pokecat);
-    setSelectedPokecat(pokecat);
-  };
-
-  const closeModal = () => {
-    setSelectedPokecat(null);
-  };
+  const {
+    notification,
+    selectedPokecat,
+    closeModal,
+    setNotification
+  } = useGameStore();
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
-      <MapView setCaughtList={setCaughtList} setNotification={setNotification} />
-      <Sidebar caughtList={caughtList} openModal={openModal} />
+      <Routes>
+        <Route path="/" element={<MainScene />} />
+        <Route path="/catch/:id" element={<CatchScene />} />
+        <Route path="/collection" element={<CollectionScene />} />
+        <Route path="/backpack" element={<BackpackScene />} />
+        <Route path="/store" element={<StoreScene />} />
+        <Route path="/scanner" element={<ScannerScene />} />
+        <Route path="/creator" element={<CreatorScene />} />
+      </Routes>
 
       {notification && (
         <Notification

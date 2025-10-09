@@ -12,19 +12,19 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   animation: fadeInOut 2.5s ease-in-out;
 
-  &.info {
+  &--info {
     background-color: #3da7f8;
   }
 
-  &.warning {
+  &--warning {
     background-color: #e7bd31;
   }
 
-  &.success {
+  &--success {
     background-color: #2ecc71;
   }
 
-  &.error {
+  &--error {
     background-color: #e74c3c;
   }
 }

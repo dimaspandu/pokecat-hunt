@@ -1,0 +1,251 @@
+.backpack-scene {
+  padding: 1.5rem;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 2rem;
+  width: 100%;
+  min-height: 100vh;
+  background: #fafafa;
+
+  &__content {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 1.25rem;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  &__item {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #eee;
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+    &:hover {
+      transform: scale(1.04);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &__item-icon {
+    width: 80px;
+    height: 80px;
+    display: grid;
+    place-items: center;
+    background: #fff6ed;
+    border-radius: 14px;
+    border: 2px solid #f97316;
+    color: #f97316;
+    font-size: 2.2rem;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+
+    img,
+    svg {
+      width: 70%;
+      height: 70%;
+      object-fit: contain;
+    }
+  }
+
+  &__item-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111;
+    text-transform: capitalize;
+  }
+
+  &__item-count {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #f97316;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    margin-top: 0.4rem;
+  }
+
+  &__empty-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  &__empty {
+    font-size: 1.2rem;
+    color: #666;
+    text-align: center;
+  }
+
+  &__btn-store {
+    background: linear-gradient(135deg, #f97316, #ffb347);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background 0.25s ease;
+
+    &:hover {
+      background: linear-gradient(135deg, #e66b00, #ffa733);
+    }
+  }
+
+  &__modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    padding: 1rem;
+  }
+
+  &__modal {
+    background: #fff;
+    border-radius: 16px;
+    max-width: 400px;
+    width: 100%;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  &__modal img,
+  &__modal svg {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 1rem;
+  }
+
+  &__modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    line-height: 1.5;
+  }
+
+  &__modal-body p {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+  }
+
+  &__btn-cancel {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(135deg, #ff6b6b, #f06595);
+    transition: background 0.25s ease, transform 0.2s ease;
+
+    &:hover {
+      background: linear-gradient(135deg, #fa5252, #e64980);
+      transform: translateY(-1px);
+    }
+  }
+
+  &__btn-cancel-blue {
+    background: linear-gradient(135deg, #22c1c3, #fdbb2d);
+
+    &:hover {
+      background: linear-gradient(135deg, #1fa2ff, #12d8fa);
+    }
+  }
+
+  @media (min-width: 480px) {
+    &__list {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      align-items: stretch;
+    }
+
+    &__item {
+      padding: 2rem 1.25rem;
+    }
+
+    &__item-icon {
+      width: 100px;
+      height: 100px;
+      font-size: 2.5rem;
+    }
+
+    &__item-name {
+      font-size: 1.3rem;
+    }
+
+    &__item-count {
+      font-size: 2rem;
+    }
+
+    &__btn-store {
+      padding: 0.75rem 2rem;
+      font-size: 1.2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    &__item-icon {
+      width: 110px;
+      height: 110px;
+      font-size: 2.6rem;
+    }
+
+    &__item-name {
+      font-size: 1.4rem;
+    }
+
+    &__item-count {
+      font-size: 2.2rem;
+    }
+
+    &__btn-store {
+      padding: 0.85rem 2.25rem;
+      font-size: 1.25rem;
+      border-radius: 12px;
+    }
+
+    &__modal {
+      padding: 2.5rem 2rem;
+      gap: 1.25rem;
+    }
+
+    &__modal img,
+    &__modal svg {
+      width: 140px;
+      height: 140px;
+    }
+
+    &__modal-body p {
+      font-size: 1.05rem;
+    }
+  }
+}

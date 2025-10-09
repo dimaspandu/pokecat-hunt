@@ -1,0 +1,144 @@
+.creator-scene {
+  padding: 1.5rem;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 1rem;
+  justify-items: center;
+
+  &__instruction {
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-align: center;
+    color: #111;
+  }
+
+  &__form {
+    display: grid;
+    gap: 1rem;
+    width: 100%;
+    max-width: 480px;
+    justify-items: center;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+
+  &__drop-area {
+    width: 100%;
+    min-height: 180px;
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 1rem;
+    text-align: center;
+    transition: border-color 0.3s, background-color 0.3s;
+    flex-direction: column; // allow icon + text to stack
+
+    p {
+      margin: 0.5rem 0 0 0;
+      color: #666;
+    }
+  }
+
+  &__drop-area.drag-active {
+    border-color: #f97316;
+    background-color: #fff7f0;
+  }
+
+  &__placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; // space between icon and text
+    color: #666;
+
+    svg {
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  &__file-input {
+    display: none;
+  }
+
+  &__preview {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  &__btn-generate {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    background: linear-gradient(135deg, #f97316, #ffb347);
+    color: white;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  &__modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
+
+  &__modal {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 16px;
+    text-align: center;
+    display: grid;
+    gap: 1rem;
+    width: 480px;
+    font-size: 1.1rem;
+
+    @media (max-width: 640px) {
+      width: calc(100% - 3rem);
+    }
+  }
+
+  &__modal-image {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
+
+  &__btn-close {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    background: linear-gradient(135deg, #10b981, #3b82f6);
+    color: white;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 0 auto;
+    width: fit-content;
+
+    @media (max-width: 640px) {
+      width: 100%;
+    }
+  }
+}

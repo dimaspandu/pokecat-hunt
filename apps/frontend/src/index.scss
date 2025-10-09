@@ -9,4 +9,10 @@
 button {
   font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
   text-transform: uppercase;
+
+  &:disabled {
+    cursor: not-allowed;
+    filter: grayscale(1);
+    opacity: 0.45;
+  }
 }

@@ -1,38 +1,33 @@
 package main
 
 import (
-	"context"       // Import context for MongoDB operations
-	"encoding/json" // Import encoding/json to handle JSON responses
-	"fmt"           // Import fmt for printing
-	"log"           // Import log for logging errors
-	"net/http"      // Import net/http for HTTP server functionality
+	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"net/http"
+	"time"
 
-	"github.com/gorilla/mux"                    // Import Gorilla Mux for routing HTTP requests
-	"go.mongodb.org/mongo-driver/bson"          // Import BSON for MongoDB operations
-	"go.mongodb.org/mongo-driver/mongo"         // Import MongoDB client
-	"go.mongodb.org/mongo-driver/mongo/options" // Import MongoDB options for configuration
+	"github.com/gorilla/mux"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// Cat struct represents the structure of a "cat" document in the MongoDB database.
 type Cat struct {
-	Name    string `json:"name"`    // The name of the cat
-	IconUrl string `json:"iconUrl"` // The URL of the cat's image
-	Rarity  string `json:"rarity"`  // The rarity of the cat (common, rare, legendary)
+	Name    string `json:"name"`
+	IconUrl string `json:"iconUrl"`
+	Rarity  string `json:"rarity"`
 }
 
-// MongoDB client to interact with the database
 var client *mongo.Client
 
-// init() function initializes the MongoDB client and establishes a connection.
 func init() {
 	var err error
-	// Directly connect to the MongoDB instance using mongo.Connect
 	client, err = mongo.Connect(context.Background(), options.Client().ApplyURI("mongodb://localhost:27017"))
 	if err != nil {
-		log.Fatal(err) // Log and stop execution if there is an error while creating the client
+		log.Fatal(err)
 	}
-
-	// Verify the connection to MongoDB
 	err = client.Ping(context.Background(), nil)
 	if err != nil {
 		log.Fatal("MongoDB connection failed:", err)
@@ -40,59 +35,101 @@ func init() {
 	fmt.Println("Connected to MongoDB")
 }
 
-// getAllCats fetches all "cat" documents from the MongoDB database.
-// It returns a slice of Cat structs and any error encountered.
 func getAllCats() ([]Cat, error) {
-	// Access the "cats" collection in the "pokecat_hunt" database
 	catsCollection := client.Database("pokecat_hunt").Collection("cats")
-
-	var cats []Cat // This will hold the list of cats retrieved from the database
-
-	// Perform a find operation to retrieve all documents from the "cats" collection
+	var cats []Cat
 	cursor, err := catsCollection.Find(context.Background(), bson.D{{}})
 	if err != nil {
-		log.Fatal(err)  // Log and return error if there is any problem
-		return nil, err // Return nil and error
+		return nil, err
 	}
-	defer cursor.Close(context.Background()) // Ensure the cursor is closed when done
+	defer cursor.Close(context.Background())
 
-	// Iterate over the cursor to decode each document into the Cat struct
 	for cursor.Next(context.Background()) {
 		var cat Cat
 		if err := cursor.Decode(&cat); err != nil {
-			log.Fatal(err) // Log error if there is any decoding issue
+			return nil, err
 		}
-		cats = append(cats, cat) // Append decoded cat to the cats slice
+		cats = append(cats, cat)
 	}
-
-	return cats, nil // Return the cats slice and no error
+	return cats, nil
 }
 
-// getCats is the HTTP handler for the /api/cats route.
-// It retrieves all the cats from MongoDB and returns them as a JSON response.
 func getCats(w http.ResponseWriter, r *http.Request) {
-	// Call getAllCats to retrieve the list of cats from MongoDB
 	cats, err := getAllCats()
 	if err != nil {
-		// If an error occurs while fetching the cats, return an error response
 		http.Error(w, "Error fetching cats data", http.StatusInternalServerError)
 		return
 	}
-
-	// Set the response content type to JSON
 	w.Header().Set("Content-Type", "application/json")
-	// Encode the cats list into JSON and send it as the response
 	json.NewEncoder(w).Encode(cats)
 }
 
-func main() {
-	// Create a new router using Gorilla Mux
-	r := mux.NewRouter()
-	// Register the /api/cats route with the GET method to the getCats handler
-	r.HandleFunc("/api/cats", getCats).Methods("GET")
+type CreateCatRequest struct {
+	Name    string `json:"name"`
+	Rarity  string `json:"rarity"`
+	IconUrl string `json:"iconUrl"` // URL returned from storage upload
+}
 
-	// Print message to indicate that the server is running on port 5000
+func createCat(w http.ResponseWriter, r *http.Request) {
+	// Parse JSON from frontend (after storage upload)
+	var reqData CreateCatRequest
+	if err := json.NewDecoder(r.Body).Decode(&reqData); err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+
+	if reqData.Name == "" || reqData.Rarity == "" || reqData.IconUrl == "" {
+		http.Error(w, "Missing required fields", http.StatusBadRequest)
+		return
+	}
+
+	newCat := Cat{
+		Name:    reqData.Name,
+		Rarity:  reqData.Rarity,
+		IconUrl: reqData.IconUrl,
+	}
+
+	catsCollection := client.Database("pokecat_hunt").Collection("cats")
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	res, err := catsCollection.InsertOne(ctx, newCat)
+	if err != nil {
+		http.Error(w, "Failed to insert cat", http.StatusInternalServerError)
+		log.Println("MongoDB insert error:", err)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"message": "Cat created successfully",
+		"id":      res.InsertedID,
+		"iconUrl": reqData.IconUrl,
+	})
+}
+
+func corsMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+
+		if r.Method == http.MethodOptions {
+			w.WriteHeader(http.StatusNoContent)
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
+}
+
+func main() {
+	r := mux.NewRouter()
+	r.HandleFunc("/api/cats", getCats).Methods("GET")
+	r.HandleFunc("/api/cats", createCat).Methods("POST")
+
+	handlerWithCors := corsMiddleware(r)
+
 	fmt.Println("Server running on port 5000...")
-	// Start the HTTP server and listen for incoming requests on port 5000
-	log.Fatal(http.ListenAndServe(":5000", r))
+	log.Fatal(http.ListenAndServe(":5000", handlerWithCors))
 }

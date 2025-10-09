@@ -1,0 +1,80 @@
+[{
+  "_id": {
+    "$oid": "68e25796c31da84ccd02b384"
+  },
+  "name": "Whiskers",
+  "iconUrl": "http://localhost:7621/cats/whiskers.png",
+  "rarity": "common"
+},
+{
+  "_id": {
+    "$oid": "68e25796c31da84ccd02b385"
+  },
+  "name": "Mochi",
+  "iconUrl": "http://localhost:7621/cats/mochi.png",
+  "rarity": "common"
+},
+{
+  "_id": {
+    "$oid": "68e25796c31da84ccd02b386"
+  },
+  "name": "Pumpkin",
+  "iconUrl": "http://localhost:7621/cats/pumpkin.png",
+  "rarity": "common"
+},
+{
+  "_id": {
+    "$oid": "68e25796c31da84ccd02b387"
+  },
+  "name": "Luna",
+  "iconUrl": "http://localhost:7621/cats/luna.png",
+  "rarity": "rare"
+},
+{
+  "_id": {
+    "$oid": "68e25796c31da84ccd02b388"
+  },
+  "name": "Shadow",
+  "iconUrl": "http://localhost:7621/cats/shadow.png",
+  "rarity": "rare"
+},
+{
+  "_id": {
+    "$oid": "68e25796c31da84ccd02b389"
+  },
+  "name": "Cleo",
+  "iconUrl": "http://localhost:7621/cats/cleo.png",
+  "rarity": "rare"
+},
+{
+  "_id": {
+    "$oid": "68e25796c31da84ccd02b38a"
+  },
+  "name": "Aurora",
+  "iconUrl": "http://localhost:7621/cats/aurora.png",
+  "rarity": "legendary"
+},
+{
+  "_id": {
+    "$oid": "68e25796c31da84ccd02b38b"
+  },
+  "name": "Phantom",
+  "iconUrl": "http://localhost:7621/cats/phantom.png",
+  "rarity": "legendary"
+},
+{
+  "_id": {
+    "$oid": "68e25796c31da84ccd02b38c"
+  },
+  "name": "Nebula",
+  "iconUrl": "http://localhost:7621/cats/nebula.png",
+  "rarity": "legendary"
+},
+{
+  "_id": {
+    "$oid": "68e25796c31da84ccd02b38d"
+  },
+  "name": "Zephyr",
+  "iconUrl": "http://localhost:7621/cats/zephyr.png",
+  "rarity": "legendary"
+}]

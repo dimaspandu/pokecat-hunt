@@ -1,12 +1,13 @@
 {
   "name": "pokecat-hunt",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"node apps/services/start-go-server.js\" \"pnpm --filter backend dev\" \"pnpm --filter frontend dev\"",
+    "dev": "concurrently \"node apps/storages/run.js\" \"node apps/services/run.js\" \"pnpm --filter backend dev\" \"pnpm --filter frontend dev\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",

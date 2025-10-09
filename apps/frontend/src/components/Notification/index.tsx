@@ -14,7 +14,7 @@ export default function Notification({ message, type, onClose }: NotificationPro
   }, [onClose]);
 
   return (
-    <div className={`${styles.notification} ${styles[type]}`}>
+    <div className={`${styles.notification} ${styles[`notification--${type}`]}`}>
       {message}
     </div>
   );

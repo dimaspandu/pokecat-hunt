@@ -17,6 +17,12 @@ const io = new Server(httpServer, {
   cors: { origin: "*" }
 });
 
+// ----------------------
+// Pokecat Manager
+// ----------------------
+// Handles all pokecat spawning, tracking, and catching logic.
+const manager = new PokecatManager(io);
+
 // Define the port for the backend server
 const PORT = 4000;
 
@@ -35,12 +41,6 @@ app.use("/static", express.static(path.resolve(__dirname, "..", "public")));
 app.get("/ping", (_, res) => {
   res.send("pokecat-backend OK");
 });
-
-// ----------------------
-// Pokecat Manager
-// ----------------------
-// Handles all pokecat spawning, tracking, and catching logic.
-const manager = new PokecatManager(io);
 
 // Endpoint to return all pokecats (wild and caught)
 app.get("/pokecats", (_, res) => {
