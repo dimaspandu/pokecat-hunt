@@ -21,10 +21,24 @@ export default function MapView() {
   const setNotification = useGameStore((s) => s.setNotification);
   const navigate = useNavigate();
   const [wildCats, setWildCats] = useState<Pokecat[]>([]);
+  const [userName, setUserName] = useState("");
+  const [showModal, setShowModal] = useState(false);
   const [userPosition, setUserPosition] = useState<LatLngExpression | null>(null);
   const socketRef = useRef<Socket | null>(null);
   const defaultCenter: LatLngExpression = [-6.2, 106.8];
   const userRef = useRef<{ id: string; name: string } | null>(null);
+
+  useEffect(() => {
+    const savedId = localStorage.getItem("userId");
+    const savedName = localStorage.getItem("userName");
+    if (savedId && savedName) {
+      userRef.current = { id: savedId, name: savedName };
+    } else {
+      const generatedId = "user-" + Math.random().toString(36).slice(2, 9);
+      userRef.current = { id: generatedId, name: "" };
+      setShowModal(true);
+    }
+  }, []);
 
   useEffect(() => {
     const socket = io("http://localhost:4000");
@@ -88,38 +102,63 @@ export default function MapView() {
       popupAnchor: [0, -48],
     });
 
+  const handleNameSubmit = () => {
+    if (!userName.trim()) return;
+    if (!userRef.current) return;
+    userRef.current.name = userName.trim();
+    localStorage.setItem("userId", userRef.current.id);
+    localStorage.setItem("userName", userRef.current.name);
+    setShowModal(false);
+  };
+
   return (
-    <MapContainer
-      className={styles["map"]}
-      center={userPosition ?? defaultCenter}
-      zoom={15}
-      scrollWheelZoom
-    >
-      <TileLayer
-        attribution="&copy; OpenStreetMap contributors"
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {userPosition && <FlyToUser position={userPosition} />}
-      {wildCats.map(pc => (
-        <Marker key={pc.id} position={[pc.lat, pc.lng]} icon={createIcon(pc.iconUrl)}>
-          <Popup className={styles["pokecat-popup"]}>
-            <div className={styles["pokecat-popup__content"]}>
-              <img
-                src={pc.iconUrl}
-                alt={pc.name}
-                className={`${styles["pokecat-popup__image"]} ${styles[`pokecat-popup__image--${pc.rarity}`]}`}
-              />
-              <h3 className={styles["pokecat-popup__title"]}>{pc.name}</h3>
-              <button
-                className={styles["pokecat-popup__button"]}
-                onClick={() => handleCatch(pc)}
-              >
-                Catch
-              </button>
-            </div>
-          </Popup>
-        </Marker>
-      ))}
-    </MapContainer>
+    <>
+      {showModal && (
+        <div className={styles["modal-backdrop"]}>
+          <div className={styles["modal"]}>
+            <h2>Enter Your Trainer Name</h2>
+            <input
+              type="text"
+              value={userName}
+              onChange={e => setUserName(e.target.value)}
+              placeholder="Ash, Misty, etc."
+            />
+            <button onClick={handleNameSubmit}>Start Hunting</button>
+          </div>
+        </div>
+      )}
+      <MapContainer
+        className={styles["map"]}
+        center={userPosition ?? defaultCenter}
+        zoom={15}
+        scrollWheelZoom
+      >
+        <TileLayer
+          attribution="&copy; OpenStreetMap contributors"
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {userPosition && <FlyToUser position={userPosition} />}
+        {wildCats.map(pc => (
+          <Marker key={pc.id} position={[pc.lat, pc.lng]} icon={createIcon(pc.iconUrl)}>
+            <Popup className={styles["pokecat-popup"]}>
+              <div className={styles["pokecat-popup__content"]}>
+                <img
+                  src={pc.iconUrl}
+                  alt={pc.name}
+                  className={`${styles["pokecat-popup__image"]} ${styles[`pokecat-popup__image--${pc.rarity}`]}`}
+                />
+                <h3 className={styles["pokecat-popup__title"]}>{pc.name}</h3>
+                <button
+                  className={styles["pokecat-popup__button"]}
+                  onClick={() => handleCatch(pc)}
+                >
+                  Catch
+                </button>
+              </div>
+            </Popup>
+          </Marker>
+        ))}
+      </MapContainer>
+    </>
   );
 }

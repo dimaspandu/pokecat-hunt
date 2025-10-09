@@ -1,12 +1,12 @@
 .store-scene {
+  background: linear-gradient(180deg, #edf6ff 0%, #f8fbff 100%);
   letter-spacing: 0.075rem;
   padding: 1.5rem;
   display: grid;
   grid-template-rows: auto 1fr;
   gap: 1.75rem;
-  width: 100%;
   min-height: 100vh;
-  background: linear-gradient(180deg, #edf6ff 0%, #f8fbff 100%);
+  width: 100%;
 
   &__balance-wrapper {
     display: flex;

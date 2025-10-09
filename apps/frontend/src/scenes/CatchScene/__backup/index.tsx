@@ -5,7 +5,6 @@ import { type Pokecat } from "@/types/pokecat";
 import { type GameItem } from "@/types/gameItem";
 import { useGameStore } from "@/stores/useGameStore";
 import { ITEMS, type ItemDefinition } from "@/constants/items";
-import AvailableItemsModal from "@/components/Fragment/AvailableItemsModal";
 import styles from "./CatchScene.module.scss";
 
 export default function CatchScene() {
@@ -148,11 +147,27 @@ export default function CatchScene() {
       </div>
 
       {modalOpen && (
-        <AvailableItemsModal
-          foodItems={foodItems}
-          onUse={throwBall}
-          onClose={() => setModalOpen(false)}
-        />
+        <div className={styles["catch-scene__modal"]}>
+          <h3>Choose a food item</h3>
+          <div className={styles["catch-scene__modal-items"]}>
+            {foodItems.map((item) => (
+              <div key={item.id} className={styles["catch-scene__modal-item"]}>
+                <img src={item.iconUrl} alt={item.name} width={80} height={80} />
+                <div>
+                  <strong>{item.name}</strong> ×{item.quantity}
+                  <div>{item.description}</div>
+                  <div>Catch Success: {((item.catchRate ?? 0.7) * 100).toFixed(0)}%</div>
+                  <button onClick={() => throwBall(item)} className={[styles["catch-scene__button"], styles["catch-scene__button--use"]].join(" ")}>
+                    Use
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+          <button onClick={() => setModalOpen(false)} className={[styles["catch-scene__button"], styles["catch-scene__button--cancel"]].join(" ")}>
+            Cancel
+          </button>
+        </div>
       )}
     </div>
   );

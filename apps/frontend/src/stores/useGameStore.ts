@@ -1,7 +1,7 @@
 // Zustand store for managing the Pokecat catching game state
 import { create } from "zustand";
 import { type Pokecat } from "@/types/pokecat";
-import { type GameItem } from "@/types/gameitem";
+import { type GameItem } from "@/types/gameItem";
 import { type ItemDefinition } from "@/constants/items";
 
 // Type for toast/alert notifications
