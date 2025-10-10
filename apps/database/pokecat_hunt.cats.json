@@ -301,4 +301,20 @@
   "name": "Waterfall",
   "iconurl": "http://localhost:7621/cats/waterfall.png",
   "rarity": "legendary"
+},
+{
+  "_id": {
+    "$oid": "68e909cc556e85a43d58678b"
+  },
+  "name": "Guntank",
+  "iconurl": "http://localhost:7621/cats/guntank.png",
+  "rarity": "rare"
+},
+{
+  "_id": {
+    "$oid": "68e90a5a556e85a43d58678c"
+  },
+  "name": "Shemock",
+  "iconurl": "http://localhost:7621/cats/shemock.png",
+  "rarity": "rare"
 }]

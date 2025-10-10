@@ -30,7 +30,7 @@ export default function CatchScene() {
 
   useEffect(() => {
     // List of possible cat phrases for the speech bubble
-    const phrases = ["Miaw~", "Prrr~", "Nyaa!", "Miiiaww!", "Meow-meow!", "Paw~"];
+    const phrases = ["Miaw~", "Prrr~", "It's not Funny!", "Nyaa!", "Miiiaww!", "Meow-meow!", "Paw~"];
     let timeout: NodeJS.Timeout | null = null;
 
     const showSpeech = () => {
@@ -141,7 +141,7 @@ export default function CatchScene() {
 
       socket.once("confirm-result", (res: { success: boolean; message?: string; pokecat: Pokecat }) => {
         setResult(res.success ? "success" : "fail");
-        if (res.success) addCaught(res.pokecat);
+        if (res.success) addCaught({ ...res.pokecat, caughtAt: Date.now() });
         setNotification({
           message: res.success ? `You caught ${res.pokecat.name}!` : res.message ?? "Failed to catch",
           type: res.success ? "success" : "error",

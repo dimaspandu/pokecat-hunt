@@ -25,7 +25,7 @@ export default function CollectionModal({ pokecat, onClose }: CollectionModalPro
           <p className={styles["collection-modal__text"]}>Rarity: {pokecat.rarity}</p>
           <p className={styles["collection-modal__text"]}>Status: {pokecat.status}</p>
           <p className={styles["collection-modal__text"]}>
-            Expires At: {new Date(pokecat.expiresAt).toLocaleString()}
+            Caught At: {new Date(pokecat.caughtAt || pokecat.expiresAt).toLocaleString()}
           </p>
         </div>
         <div className={styles["collection-modal__footer"]}>

@@ -28,7 +28,7 @@ The backend intentionally simulates **race conditions**, such as when multiple p
 
 ## Demo
 
-![Demo](./screenshots/journey-demo.gif)
+![Demo](./screenshots/journey-demo.mp4)
 
 ---
 
@@ -54,6 +54,12 @@ The backend intentionally simulates **race conditions**, such as when multiple p
 
 ### Gameplay 7
 ![Screenshot 7](./screenshots/screenshot-7.png)
+
+### Gameplay 8
+![Screenshot 8](./screenshots/screenshot-8.png)
+
+### Gameplay 9
+![Screenshot 9](./screenshots/screenshot-9.png)
 
 ---
 
