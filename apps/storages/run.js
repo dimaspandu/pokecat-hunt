@@ -42,33 +42,10 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // GET / => list all images + upload form
+  // GET / => forbidden
   if (req.method === 'GET' && req.url === '/') {
-    fs.readdir(catsFolder, (err, files) => {
-      if (err) {
-        res.writeHead(500);
-        res.end('Failed to read directory');
-        return;
-      }
-
-      const items = files
-        .filter(f => /\.(png|jpe?g|gif|webp|svg)$/i.test(f))
-        .map(f => `<li><a href="/cats/${f}">${f}</a></li>`)
-        .join('');
-
-      const uploadForm = `
-        <h2>Cat Images</h2>
-        <ul>${items}</ul>
-        <h3>Upload New Image</h3>
-        <form method="POST" enctype="multipart/form-data">
-          <input type="file" name="cat" accept="image/*" required />
-          <button type="submit">Upload</button>
-        </form>
-      `;
-
-      res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.end(uploadForm);
-    });
+    res.writeHead(403);
+    res.end('Forbidden');
 
   // GET /cats/:filename => serve image file
   } else if (req.method === 'GET' && req.url.startsWith('/cats/')) {

@@ -16,7 +16,7 @@
     display: grid;
     gap: 1rem;
     width: 100%;
-    max-width: 480px;
+    max-width: 640px;
     justify-items: center;
   }
 
@@ -40,7 +40,7 @@
     padding: 1rem;
     text-align: center;
     transition: border-color 0.3s, background-color 0.3s;
-    flex-direction: column; // allow icon + text to stack
+    flex-direction: column;
 
     p {
       margin: 0.5rem 0 0 0;
@@ -58,7 +58,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem; // space between icon and text
+    gap: 0.5rem;
     color: #666;
 
     svg {
@@ -111,7 +111,7 @@
     text-align: center;
     display: grid;
     gap: 1rem;
-    width: 480px;
+    width: 640px;
     font-size: 1.1rem;
 
     @media (max-width: 640px) {
@@ -136,9 +136,5 @@
     cursor: pointer;
     margin: 0 auto;
     width: fit-content;
-
-    @media (max-width: 640px) {
-      width: 100%;
-    }
   }
 }

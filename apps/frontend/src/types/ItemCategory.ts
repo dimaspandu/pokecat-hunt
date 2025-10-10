@@ -1,0 +1,1 @@
+export type ItemCategory = "food" | "equipment" | "weapon" | "cage";

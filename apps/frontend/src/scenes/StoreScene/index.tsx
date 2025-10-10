@@ -1,9 +1,10 @@
-import { useGameStore } from "@/stores/useGameStore";
+import { useGameStore } from "~/stores/useGameStore";
 import { useState } from "react";
-import SceneHeader from "@/components/SceneHeader";
-import CatCoin from "@/components/2D/CatCoin";
-import { ITEMS, type ItemDefinition } from "@/constants/items";
-import { ITEM_CATEGORY_LABELS, ITEM_CATEGORY_COLORS } from "@/constants/itemCategories";
+import SceneHeader from "~/components/SceneHeader";
+import CatCoin from "~/components/2D/CatCoin";
+import { ITEMS } from "~/constants/items";
+import type { ItemDefinition } from "~/types/ItemDefinition";
+import { ITEM_CATEGORY_LABELS, ITEM_CATEGORY_COLORS } from "~/constants/itemCategories";
 import styles from "./StoreScene.module.scss";
 
 export default function StoreScene() {

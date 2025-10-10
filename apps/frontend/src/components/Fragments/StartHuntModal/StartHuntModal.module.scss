@@ -1,16 +1,25 @@
-.start-hunt-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 1100;
+@mixin flexCenterCenter() {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.start-hunt-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1101;
+  @include flexCenterCenter();
 
   &__backdrop {
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.55);
     animation: fade-in 0.3s ease forwards;
+    @include flexCenterCenter();
+
+    @media screen and (max-width: 640px) {
+      align-items: flex-end;
+    }
   }
 
   &__content {
@@ -25,7 +34,7 @@
     z-index: 1110;
     animation: slide-up 0.3s ease forwards;
 
-    @media (max-width: 480px) {
+    @media (max-width: 640px) {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
       width: 100%;
@@ -72,10 +81,6 @@
     &:hover {
       background: linear-gradient(135deg, #4f46e5, #7c3aed);
       transform: translateY(-2px);
-    }
-
-    @media (max-width: 480px) {
-      width: 100%;
     }
   }
 }

@@ -1,8 +1,6 @@
-type ChevronRightIconProps = {
-  className?: string;
-};
+import type { IconProps } from "~/types/IconProps";
 
-export default function ChevronRightIcon({ className }: ChevronRightIconProps) {
+export default function ChevronRightIcon({ className }: IconProps) {
   return (
     <svg
       className={className || ""}

@@ -1,5 +1,5 @@
-import { type GameItem } from "@/types/gameItem";
-import { type ItemDefinition } from "@/constants/items";
+import { type GameItem } from "~/types/GameItem";
+import { type ItemDefinition } from "~/types/ItemDefinition";
 import styles from "./AvailableItemsModal.module.scss";
 
 interface AvailableItemsModalProps {

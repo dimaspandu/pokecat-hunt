@@ -1,25 +1,10 @@
-import ChickMeow from "@/components/2D/ChickMeow";
-import FastpawShoes from "@/components/2D/FastpawShoes";
-import MeowNet from "@/components/2D/MeowNet";
-import AutoCage from "@/components/2D/AutoCage";
-import GrilledFish from "@/components/2D/GrilledFish";
-import WishCash from "@/components/2D/WishCash";
-
-export type ItemCategory = "food" | "equipment" | "weapon" | "cage";
-
-export interface ItemDefinition {
-  id: string;
-  name: string;
-  description: string;
-  category: ItemCategory;
-  price: number;
-  rarity: "common" | "rare" | "epic" | "legendary";
-  iconComponent?: React.FC<React.SVGProps<SVGSVGElement>>;
-  iconUrl?: string;
-  usable?: boolean; // if true, can be used (e.g., food, cage)
-  useEffect?: string; // short effect description
-  catchRate?: number; // value between 0 and 1, e.g., 0.7 = 70% success
-}
+import type { ItemDefinition } from "~/types/ItemDefinition";
+import ChickMeow from "~/components/2D/ChickMeow";
+import FastpawShoes from "~/components/2D/FastpawShoes";
+import MeowNet from "~/components/2D/MeowNet";
+import AutoCage from "~/components/2D/AutoCage";
+import GrilledFish from "~/components/2D/GrilledFish";
+import WishCash from "~/components/2D/WishCash";
 
 export const ITEMS: ItemDefinition[] = [
   {

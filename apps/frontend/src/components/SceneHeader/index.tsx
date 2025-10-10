@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import ArrowIcon from "@/components/Icons/ArrowIcon";
+import ArrowIcon from "~/components/Icons/ArrowIcon";
 import styles from "./SceneHeader.module.scss";
 
 interface SceneHeaderProps {

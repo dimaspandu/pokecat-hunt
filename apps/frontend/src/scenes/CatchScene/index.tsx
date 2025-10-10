@@ -1,11 +1,12 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { io, type Socket } from "socket.io-client";
-import { type Pokecat } from "@/types/pokecat";
-import { type GameItem } from "@/types/gameItem";
-import { useGameStore } from "@/stores/useGameStore";
-import { ITEMS, type ItemDefinition } from "@/constants/items";
-import AvailableItemsModal from "@/components/Fragment/AvailableItemsModal";
+import type { Pokecat } from "~/types/Pokecat";
+import type { GameItem } from "~/types/GameItem";
+import type { ItemDefinition } from "~/types/ItemDefinition";
+import { loadFromLocalStorage, useGameStore } from "~/stores/useGameStore";
+import { ITEMS } from "~/constants/items";
+import AvailableItemsModal from "~/components/Fragments/AvailableItemsModal";
 import styles from "./CatchScene.module.scss";
 
 export default function CatchScene() {
@@ -78,14 +79,15 @@ export default function CatchScene() {
 
       setBallHit(true);
       const success = Math.random() < rate;
+      const user = loadFromLocalStorage("user", {
+        id: "unknown",
+        name: "Trainer",
+      });
 
       socket.emit("confirm-catch", {
         pokecatId: cat.id,
         success,
-        user: {
-          id: localStorage.getItem("userId") ?? "unknown",
-          name: localStorage.getItem("userName") ?? "Trainer",
-        },
+        user: user,
       });
 
       socket.once("confirm-result", (res: { success: boolean; message?: string; pokecat: Pokecat }) => {

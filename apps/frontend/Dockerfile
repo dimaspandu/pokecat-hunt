@@ -1,20 +1,30 @@
-# Use official Node.js image as the base image (e.g., Node.js 18)
-FROM node:18
+# ---------- Stage 1: Build ----------
+FROM node:18 AS builder
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json (if exists) to the container
+# Copy only package files first for better caching
 COPY package*.json ./
-
-# Install project dependencies (including devDependencies for building the frontend)
 RUN npm install
 
-# Copy the entire frontend source code into the container
+# Copy source code and build
 COPY . .
+RUN npm run build
 
-# Expose port 5173 for Vite development server (adjust if using a different port)
-EXPOSE 5173
+# ---------- Stage 2: Serve ----------
+FROM node:18-slim AS runner
 
-# Command to run the application in development mode with Vite
-CMD ["npm", "run", "dev"]
+WORKDIR /app
+
+# Copy only built assets from builder stage
+COPY --from=builder /app/dist ./dist
+COPY package*.json ./
+
+# Install only production dependencies (none needed for static serve)
+RUN npm install -g serve
+
+# Expose port for static server
+EXPOSE 4173
+
+# Serve built files
+CMD ["serve", "-s", "dist", "-l", "4173"]

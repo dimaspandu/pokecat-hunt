@@ -1,5 +1,5 @@
-import MapView from "~/components/Fragment/MapView";
-import Sidebar from "~/components/Fragment/Sidebar";
+import MapView from "~/components/Fragments/MapView";
+import Sidebar from "~/components/Fragments/Sidebar";
 
 export default function MainScene() {
   return (

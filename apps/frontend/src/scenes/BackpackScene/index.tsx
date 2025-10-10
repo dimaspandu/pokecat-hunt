@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SceneHeader from "@/components/SceneHeader";
-import { useGameStore } from "@/stores/useGameStore";
-import { ITEMS, type ItemDefinition } from "@/constants/items";
+import { useGameStore } from "~/stores/useGameStore";
+import { ITEMS } from "~/constants/items";
+import type { ItemDefinition } from "~/types/ItemDefinition";
+import SceneHeader from "~/components/SceneHeader";
 import styles from "./BackpackScene.module.scss";
 
 export default function BackpackScene() {
-  const { items } = useGameStore();
-  const navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState<(ItemDefinition & { quantity: number }) | null>(null);
+  const navigate = useNavigate();
+
+  const { items } = useGameStore();
+
 
   return (
     <div className={styles["backpack-scene"]}>

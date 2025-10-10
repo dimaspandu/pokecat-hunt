@@ -1,23 +1,12 @@
-import React from "react";
+import type { Pokecat } from "~/types/Pokecat";
 import styles from "./CollectionModal.module.scss";
-
-interface Pokecat {
-  id: string;
-  name: string;
-  iconUrl: string;
-  lat: number;
-  lng: number;
-  status: string;
-  expiresAt: number;
-  rarity: string;
-}
 
 interface CollectionModalProps {
   pokecat: Pokecat;
   onClose: () => void;
 }
 
-const CollectionModal: React.FC<CollectionModalProps> = ({ pokecat, onClose }) => {
+export default function CollectionModal({ pokecat, onClose }: CollectionModalProps) {
   return (
     <div className={styles["collection-modal"]}>
       <div className={styles["collection-modal__content"]}>
@@ -47,6 +36,4 @@ const CollectionModal: React.FC<CollectionModalProps> = ({ pokecat, onClose }) =
       </div>
     </div>
   );
-};
-
-export default CollectionModal;
+}

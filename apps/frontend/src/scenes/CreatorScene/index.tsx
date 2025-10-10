@@ -1,14 +1,16 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGameStore } from "@/stores/useGameStore";
-import SceneHeader from "@/components/SceneHeader";
-import type { Pokecat } from "@/types/pokecat";
-import UploaderIcon from "@/components/Icons/UploaderIcon";
+import { useGameStore } from "~/stores/useGameStore";
+import SceneHeader from "~/components/SceneHeader";
+import type { Pokecat } from "~/types/Pokecat";
+import UploaderIcon from "~/components/Icons/UploaderIcon";
 import styles from "./CreatorScene.module.scss";
 
 export default function CreatorScene() {
   const navigate = useNavigate();
+
   const { addCaught, setNotification } = useGameStore();
+
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);

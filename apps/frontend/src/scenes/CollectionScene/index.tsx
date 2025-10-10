@@ -1,5 +1,5 @@
-import { useGameStore } from "@/stores/useGameStore";
-import SceneHeader from "@/components/SceneHeader";
+import { useGameStore } from "~/stores/useGameStore";
+import SceneHeader from "~/components/SceneHeader";
 import styles from "./CollectionScene.module.scss";
 
 export default function CollectionScene() {

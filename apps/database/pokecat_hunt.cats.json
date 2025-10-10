@@ -77,4 +77,228 @@
   "name": "Zephyr",
   "iconUrl": "http://localhost:7621/cats/zephyr.png",
   "rarity": "legendary"
+},
+{
+  "_id": {
+    "$oid": "68e671d7c32d6fc362b1f175"
+  },
+  "name": "Aliyen",
+  "iconurl": "http://localhost:7621/cats/aliyen.png",
+  "rarity": "common"
+},
+{
+  "_id": {
+    "$oid": "68e673cf2b92eb713e1ea8dc"
+  },
+  "name": "Astoria",
+  "iconurl": "http://localhost:7621/cats/astoria.png",
+  "rarity": "legendary"
+},
+{
+  "_id": {
+    "$oid": "68e673e02b92eb713e1ea8dd"
+  },
+  "name": "Boa",
+  "iconurl": "http://localhost:7621/cats/boa.png",
+  "rarity": "rare"
+},
+{
+  "_id": {
+    "$oid": "68e673f02b92eb713e1ea8de"
+  },
+  "name": "Boocil",
+  "iconurl": "http://localhost:7621/cats/boocil.png",
+  "rarity": "rare"
+},
+{
+  "_id": {
+    "$oid": "68e673fd2b92eb713e1ea8df"
+  },
+  "name": "Aliyen",
+  "iconurl": "http://localhost:7621/cats/aliyen.png",
+  "rarity": "rare"
+},
+{
+  "_id": {
+    "$oid": "68e674ce2b92eb713e1ea8e0"
+  },
+  "name": "Castangel",
+  "iconurl": "http://localhost:7621/cats/castangel.png",
+  "rarity": "legendary"
+},
+{
+  "_id": {
+    "$oid": "68e674f82b92eb713e1ea8e1"
+  },
+  "name": "Cowisco",
+  "iconurl": "http://localhost:7621/cats/cowiscow.png",
+  "rarity": "rare"
+},
+{
+  "_id": {
+    "$oid": "68e6750a2b92eb713e1ea8e2"
+  },
+  "name": "Crayon",
+  "iconurl": "http://localhost:7621/cats/crayon.png",
+  "rarity": "legendary"
+},
+{
+  "_id": {
+    "$oid": "68e6751f2b92eb713e1ea8e3"
+  },
+  "name": "Dienice",
+  "iconurl": "http://localhost:7621/cats/dienice.png",
+  "rarity": "common"
+},
+{
+  "_id": {
+    "$oid": "68e6f2c7732392e094c9c8bd"
+  },
+  "name": "Eldery",
+  "iconurl": "http://localhost:7621/cats/eldery.png",
+  "rarity": "legendary"
+},
+{
+  "_id": {
+    "$oid": "68e6f2f0732392e094c9c8be"
+  },
+  "name": "Guardiana",
+  "iconurl": "http://localhost:7621/cats/guardiana.png",
+  "rarity": "common"
+},
+{
+  "_id": {
+    "$oid": "68e6f308732392e094c9c8bf"
+  },
+  "name": "Hoteltowel",
+  "iconurl": "http://localhost:7621/cats/hoteltowel.png",
+  "rarity": "legendary"
+},
+{
+  "_id": {
+    "$oid": "68e6f31a732392e094c9c8c0"
+  },
+  "name": "Jowy",
+  "iconurl": "http://localhost:7621/cats/jowy.png",
+  "rarity": "common"
+},
+{
+  "_id": {
+    "$oid": "68e6f32a732392e094c9c8c1"
+  },
+  "name": "Kemocheng",
+  "iconurl": "http://localhost:7621/cats/kemocheng.png",
+  "rarity": "legendary"
+},
+{
+  "_id": {
+    "$oid": "68e6fe76732392e094c9c8c2"
+  },
+  "name": "Keylee",
+  "iconurl": "http://localhost:7621/cats/keylee.png",
+  "rarity": "common"
+},
+{
+  "_id": {
+    "$oid": "68e6fe81732392e094c9c8c3"
+  },
+  "name": "Lapmeyja",
+  "iconurl": "http://localhost:7621/cats/lapmeyja.png",
+  "rarity": "rare"
+},
+{
+  "_id": {
+    "$oid": "68e6fe98732392e094c9c8c4"
+  },
+  "name": "Maskuli",
+  "iconurl": "http://localhost:7621/cats/maskuli.png",
+  "rarity": "legendary"
+},
+{
+  "_id": {
+    "$oid": "68e70005732392e094c9c8c5"
+  },
+  "name": "Mountain",
+  "iconurl": "http://localhost:7621/cats/mountain.png",
+  "rarity": "legendary"
+},
+{
+  "_id": {
+    "$oid": "68e7c9c6ea76d07f686a09bd"
+  },
+  "name": "Mujaer",
+  "iconurl": "http://localhost:7621/cats/mujaer.png",
+  "rarity": "legendary"
+},
+{
+  "_id": {
+    "$oid": "68e7c9f9ea76d07f686a09be"
+  },
+  "name": "Nastar",
+  "iconurl": "http://localhost:7621/cats/nastar.png",
+  "rarity": "legendary"
+},
+{
+  "_id": {
+    "$oid": "68e7ca07ea76d07f686a09bf"
+  },
+  "name": "Paintia",
+  "iconurl": "http://localhost:7621/cats/paintia.png",
+  "rarity": "legendary"
+},
+{
+  "_id": {
+    "$oid": "68e7ca64ea76d07f686a09c0"
+  },
+  "name": "Reybahn",
+  "iconurl": "http://localhost:7621/cats/reybahn.png",
+  "rarity": "common"
+},
+{
+  "_id": {
+    "$oid": "68e7ca70ea76d07f686a09c1"
+  },
+  "name": "Saras0812",
+  "iconurl": "http://localhost:7621/cats/saras0812.png",
+  "rarity": "common"
+},
+{
+  "_id": {
+    "$oid": "68e7ca91ea76d07f686a09c2"
+  },
+  "name": "Scarlot",
+  "iconurl": "http://localhost:7621/cats/scarlot.png",
+  "rarity": "legendary"
+},
+{
+  "_id": {
+    "$oid": "68e7caecea76d07f686a09c3"
+  },
+  "name": "Sofa",
+  "iconurl": "http://localhost:7621/cats/sofa.png",
+  "rarity": "common"
+},
+{
+  "_id": {
+    "$oid": "68e7cb53ea76d07f686a09c4"
+  },
+  "name": "Sping",
+  "iconurl": "http://localhost:7621/cats/sping.png",
+  "rarity": "common"
+},
+{
+  "_id": {
+    "$oid": "68e7cb69ea76d07f686a09c5"
+  },
+  "name": "Taipeketan",
+  "iconurl": "http://localhost:7621/cats/taipeketan.png",
+  "rarity": "common"
+},
+{
+  "_id": {
+    "$oid": "68e7cb87ea76d07f686a09c6"
+  },
+  "name": "Waterfall",
+  "iconurl": "http://localhost:7621/cats/waterfall.png",
+  "rarity": "legendary"
 }]

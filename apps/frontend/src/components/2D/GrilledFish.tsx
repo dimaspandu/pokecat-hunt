@@ -1,4 +1,4 @@
-export default function GrilledFishIcon(props: React.SVGProps<SVGSVGElement>) {
+export default function GrilledFish(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       viewBox="0 0 512 512"

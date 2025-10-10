@@ -1,13 +1,12 @@
-import { useEffect } from 'react';
-import styles from './Notification.module.scss';
+import { useEffect } from "react";
+import type { NotificationProps } from "~/types/NotificationProps";
+import styles from "./Notification.module.scss";
 
-interface NotificationProps {
-  message: string;
-  type: 'info' | 'success' | 'warning' | 'error';
+interface NotificationPropsExtended extends NotificationProps {
   onClose: () => void;
 }
 
-export default function Notification({ message, type, onClose }: NotificationProps) {
+export default function Notification({ message, type, onClose }: NotificationPropsExtended) {
   useEffect(() => {
     const timeout = setTimeout(() => onClose(), 7500);
     return () => clearTimeout(timeout);

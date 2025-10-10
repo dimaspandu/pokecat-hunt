@@ -1,13 +1,14 @@
 # Pokecat Hunt
 
-Pokecat Hunt is a real-time location-based game inspired by Pokémon Go but with cats.  
-Players can explore a map, discover wild Pokecats, and catch them before they disappear.  
+**Pokecat Hunt** is a real-time, location-based prototype game inspired by Pokémon Go — but with cats.  
+Players explore a map, discover nearby wild Pokecats, and catch them before they disappear.
 
-This project is split into three main parts:
+This monorepo project is composed of several apps and services:
 
-- **Backend**: Express + Socket.IO server that spawns Pokecats and broadcasts them to clients.
-- **Frontend**: React + Vite + Leaflet map that displays wild Pokecats and lets users catch them.
-- **Services**: Go + MongoDB service that stores and serves Pokecat data via REST API.
+- **Backend**: Express + Socket.IO server that spawns Pokecats and handles real-time communication.  
+- **Frontend**: React + Vite + Leaflet map client for catching Pokecats.  
+- **Services**: Go + MongoDB service providing Pokecat data through a REST API.  
+- **Storages**: Local file storage acting as an object bucket for serving Pokecat images.
 
 Pokecat Hunt is a small experimental project consisting of a backend (Express + Socket.IO),  
 a frontend (React + Leaflet), and a Go service connected to MongoDB.  
@@ -24,14 +25,12 @@ database-backed persistence can be combined in a multiplayer-like environment.
 
 ## Features
 
-- Interactive Map built with [Leaflet](https://leafletjs.com/) and React Leaflet  
-- Pokecat Spawning handled by the server with random rarity and expiration  
-- Real-time Updates powered by Socket.IO  
-- Cat Database Service with Go + MongoDB  
-- REST API endpoint `/api/cats` to fetch available Pokecats from MongoDB  
-- Custom Styling with SCSS  
-- Modern Frontend using Vite + React 19  
-- TypeScript across both backend and frontend  
+- Real-time updates powered by Socket.IO  
+- Interactive map built with React Leaflet  
+- RESTful service written in Go + MongoDB  
+- Local image hosting with Node.js (`storages/run.js`)  
+- Concurrent spawning and catching logic to simulate race conditions  
+- Modern frontend stack (React 19 + TypeScript + SCSS + Vite)
 
 ---
 
@@ -173,6 +172,12 @@ GET http://localhost:5000/api/cats
 - **Frontend**: React 19, Vite, React Leaflet, SCSS  
 - **Services**: Go, MongoDB, Gorilla Mux  
 - **Tooling**: ESLint, TypeScript, pnpm workspaces, concurrently  
+
+---
+
+## High Level Architecture Diagram
+
+![High Level Architecture Diagram](./docs/high-level.architecture-diagram.png)
 
 ---
 

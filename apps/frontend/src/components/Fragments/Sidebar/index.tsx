@@ -1,29 +1,37 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGameStore } from "@/stores/useGameStore";
+import { useGameStore } from "~/stores/useGameStore";
 import {
   CollectionIcon,
   BackpackIcon,
   StoreIcon,
   ScannerIcon,
   CreatorIcon,
-} from "@/components/Icons/SidebarMenu";
-import PokecatIcon from "@/components/Icons/PokecatIcon";
-import ChevronRightIcon from "@/components/Icons/ChevronRightIcon";
+} from "~/components/Icons/SidebarMenu";
+import PokecatIcon from "~/components/Icons/PokecatIcon";
+import ChevronRightIcon from "~/components/Icons/ChevronRightIcon";
 import styles from "./Sidebar.module.scss";
 
-export default function Sidebar() {
-  const { caughtList, openModal } = useGameStore();
-  const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
+const maxPreview = 10;
 
-  const menus = [
-    { label: "Collection", path: "/collection", icon: <CollectionIcon /> },
-    { label: "Backpack", path: "/backpack", icon: <BackpackIcon /> },
-    { label: "Store", path: "/store", icon: <StoreIcon /> },
-    { label: "Scanner", path: "/scanner", icon: <ScannerIcon /> },
-    { label: "Creator", path: "/creator", icon: <CreatorIcon /> },
-  ];
+const menus = [
+  { label: "Collection", path: "/collection", icon: <CollectionIcon /> },
+  { label: "Backpack", path: "/backpack", icon: <BackpackIcon /> },
+  { label: "Store", path: "/store", icon: <StoreIcon /> },
+  { label: "Scanner", path: "/scanner", icon: <ScannerIcon /> },
+  { label: "Creator", path: "/creator", icon: <CreatorIcon /> },
+];
+
+export default function Sidebar() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const caughtList = useGameStore((s) => s.caughtList);
+  const openModal = useGameStore((s) => s.openModal);
+
+  /** Limit the visible Pokecat list to the first 10 for preview */
+  const previewCats = caughtList.slice(0, maxPreview);
+  
+  const navigate = useNavigate();
 
   return (
     <>
@@ -71,7 +79,7 @@ export default function Sidebar() {
           <p className={styles["sidebar__empty"]}>No Pokecats caught yet.</p>
         ) : (
           <ul className={styles["sidebar__list"]}>
-            {caughtList.map((cat) => (
+            {previewCats.map((cat) => (
               <li
                 key={cat.id}
                 className={styles["sidebar__item"]}
@@ -88,7 +96,7 @@ export default function Sidebar() {
           </ul>
         )}
 
-        {caughtList.length > 0 && (
+        {caughtList.length > maxPreview && (
           <button
             className={styles["sidebar__view-all"]}
             onClick={() => {

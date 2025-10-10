@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGameStore } from "@/stores/useGameStore";
-import type { Pokecat } from "@/types/pokecat";
-import SceneHeader from "@/components/SceneHeader";
+import { useGameStore } from "~/stores/useGameStore";
+import type { Pokecat } from "~/types/Pokecat";
+import SceneHeader from "~/components/SceneHeader";
 import styles from "./ScannerScene.module.scss";
 
 export default function ScannerScene() {
