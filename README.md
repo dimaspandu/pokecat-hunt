@@ -49,6 +49,12 @@ The backend intentionally simulates **race conditions**, such as when multiple p
 ### Gameplay 5
 ![Screenshot 5](./screenshots/screenshot-5.png)
 
+### Gameplay 6
+![Screenshot 6](./screenshots/screenshot-6.png)
+
+### Gameplay 7
+![Screenshot 7](./screenshots/screenshot-7.png)
+
 ---
 
 ## Project Structure
