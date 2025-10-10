@@ -39,6 +39,7 @@ interface GameState {
   setCaughtList: (updater: (prev: Pokecat[]) => Pokecat[]) => void;
   addCaught: (pokecat: Pokecat) => void;
   setNotification: (notification: Notification | null) => void;
+  clearNotification: () => void,
   openModal: (pokecat: Pokecat) => void;
   closeModal: () => void;
   addItem: (item: ItemDefinition | GameItem, quantity?: number) => void;
@@ -106,6 +107,7 @@ export const useGameStore = create<GameState>((set, get) => ({
     }),
 
   setNotification: (notification) => set({ notification }),
+  clearNotification: () => set({ notification: null }),
   openModal: (pokecat) => set({ selectedPokecat: pokecat }),
   closeModal: () => set({ selectedPokecat: null }),
 

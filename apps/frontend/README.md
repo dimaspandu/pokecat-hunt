@@ -1,22 +1,19 @@
 # Pokecat Hunt -- Frontend
 
-This is the **frontend client** for the **Pokecat Hunt** project --- a
-real-time, location-based cat-catching game inspired by Pokémon GO.\
-It is built with **React 19**, **Vite**, and **Leaflet**, using
-**Socket.IO** for live updates.
+This is the **frontend client** for the **Pokecat Hunt** project --- a real-time, location-based cat-catching game inspired by Pokémon GO.\
+It is built with **React 19**, **Vite**, and **Leaflet**, using **Socket.IO** for live updates.
 
 ------------------------------------------------------------------------
 
 ## Overview
 
-The frontend displays a real-time interactive map that shows wild
-Pokecats around the player's location.\
-Players can start a session, move across the map, and catch Pokecats
-before they disappear.
+The frontend displays a real-time interactive map that shows wild Pokecats around the player's location.\
+Players can start a session, move across the map, and catch Pokecats before they disappear.
 
-It connects to: - The **backend** (`apps/backend`) for real-time events
-(spawn, catch, expire) - The **Go service** (`apps/services`) for REST
-API data (`/api/cats`)
+It connects to:
+- The **backend** (`apps/backend`) for real-time events (spawn, catch, expire)
+- The **Go service** (`apps/services`) for REST API data (`/api/cats`)
+- The **storages** (`apps/storages`) for acting as an object bucket for saving and serving Pokecat images
 
 ------------------------------------------------------------------------
 
@@ -49,6 +46,7 @@ API data (`/api/cats`)
     ├── vitest.setup.ts          # Test setup (Testing Library, etc.)
     ├── tsconfig.app.json
     ├── Dockerfile               # Optional Docker build config
+    ├── Dockerfile.dev           # Optional Docker build config (for dev)
     └── README.md                # This file
 
 ------------------------------------------------------------------------
@@ -107,14 +105,10 @@ Opens **Vitest UI** to view and debug test results in real-time.
 
 ## Testing
 
-This project uses [Vitest](https://vitest.dev/) together with
-[@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)
-for component testing.
+This project uses [Vitest](https://vitest.dev/) together with [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/) for component testing.
 
-Snapshot files (`__snapshots__/`) are automatically generated when using
-`toMatchSnapshot()` assertions,\
-but they are **ignored in `.gitignore`** to avoid unnecessary version
-noise.
+Snapshot files (`__snapshots__/`) are automatically generated when using `toMatchSnapshot()` assertions,\
+but they are **ignored in `.gitignore`** to avoid unnecessary version noise.
 
 Example test:
 
@@ -135,18 +129,20 @@ it('renders WishCash icon correctly', () => {
   -----------------------------------------------------------------------
   Service              Purpose              Default Port
   -------------------- -------------------- -----------------------------
-  Backend (Express +   Handles Pokecat      `3000`
+  Backend (Express +   Handles Pokecat      `4000`
   Socket.IO)           spawn & catch events 
 
   Services (Go +       Provides `/api/cats` `5000`
-  MongoDB)             endpoint             
+  MongoDB)             endpoint            
+
+  Storages (Node.js)   Provides `/cats/{}`  `7621`
+                       endpoint             
 
   Frontend (React +    Player client UI     `5173`
   Vite)                                     
   -----------------------------------------------------------------------
 
-Make sure both backend and Go service are running before launching the
-frontend.
+Make sure all services are running before launching the frontend.
 
 ------------------------------------------------------------------------
 
@@ -186,13 +182,10 @@ The app will be available at **http://localhost:5173**.
 
 ## Styling
 
-SCSS is organized using **BEM naming conventions** for maintainability
-and clarity.\
-Global styles are defined in `src/styles/App.scss` and imported from
-`main.tsx`.
+SCSS is organized using **BEM naming conventions** for maintainability and clarity.\
+Global styles are defined in `src/styles/App.scss` and imported from `main.tsx`.
 
-Animations and transitions (such as fade-out effects) use CSS
-transitions to keep performance smooth.
+Animations and transitions (such as fade-out effects) use CSS transitions to keep performance smooth.
 
 ------------------------------------------------------------------------
 

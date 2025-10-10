@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, useState, lazy, Suspense } from "react";
 import { useGameStore } from "~/stores/useGameStore";
 import StartHuntModal from "~/components/Fragments/StartHuntModal";
@@ -18,10 +18,23 @@ const CreatorScene = lazy(() => import("~/scenes/CreatorScene"));
  * Root application component managing global modals, routes, and user initialization.
  */
 export default function App() {
-  const { notification, selectedPokecat, closeModal, setNotification, user, setUser } =
-    useGameStore();
+  const {
+    notification,
+    clearNotification,
+    selectedPokecat,
+    closeModal,
+    setNotification,
+    user,
+    setUser
+  } = useGameStore();
+  const location = useLocation();
 
   const [showStartModal, setShowStartModal] = useState(false);
+
+  useEffect(() => {
+    clearNotification();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
 
   /**
    * Initialize user identity from localStorage or prompt for name on first visit.

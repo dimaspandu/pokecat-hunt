@@ -98,7 +98,7 @@ export default function Sidebar() {
 
         {caughtList.length > maxPreview && (
           <button
-            className={styles["sidebar__view-all"]}
+            className={styles["sidebar__view-all-btn"]}
             onClick={() => {
               setIsOpen(false);
               navigate("/collection");
