@@ -18,7 +18,7 @@ interface AvailableItemsModalProps {
 export default function AvailableItemsModal({ items, onUse, onClose }: AvailableItemsModalProps) {
   return (
     <div className={styles["available-modal"]}>
-      <h3 className={styles["available-modal__title"]}>Choose a food item</h3>
+      <h3 className={styles["available-modal__title"]}>Choose an item</h3>
 
       <div className={styles["available-modal__items"]}>
         {items.map((item) => (
