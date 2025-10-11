@@ -30,6 +30,12 @@
     overflow: hidden;
   }
 
+  &__cat-wrapper {
+    position: relative;
+    display: inline-block;
+    height: 180px;
+  }
+
   &__cat {
     position: relative;
     width: 180px;
@@ -57,11 +63,6 @@
     &--move-random {
       transform: translateX(calc(-20px + 40px * math.random()));
     }
-  }
-
-  &__cat-wrapper {
-    position: relative;
-    display: inline-block;
   }
 
   &__speech {

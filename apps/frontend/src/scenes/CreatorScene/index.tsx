@@ -101,8 +101,9 @@ export default function CreatorScene() {
         name: catName,
         lat: 0,
         lng: 0,
-        status: "wild",
+        status: "caught",
         iconUrl,
+        caughtAt: Date.now(),
         expiresAt: Date.now() + 30 * 60 * 1000,
         rarity: randomRarity,
       };

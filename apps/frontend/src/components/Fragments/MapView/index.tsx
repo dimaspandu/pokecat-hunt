@@ -29,15 +29,18 @@ const createIcon = (url: string) => L.icon({
 export default function MapView() {
   const setNotification = useGameStore((s) => s.setNotification);
   const user = useGameStore((s) => s.user);
-
   const navigate = useNavigate();
 
+  /** Currently visible Pokecats on the map */
   const [wildCats, setWildCats] = useState<LocalPokecat[]>([]);
+
+  /** User's current location */
   const [userPosition, setUserPosition] = useState<LatLngExpression | null>(null);
+  
+  /** Default map center (Jakarta) */
+  const defaultCenter: LatLngExpression = [-6.2, 106.8];
 
   const socketRef = useRef<Socket | null>(null);
-  
-  const defaultCenter: LatLngExpression = [-6.2, 106.8];
 
   /**
    * Initialize socket connection, listen to server Pokecat events,
@@ -135,30 +138,50 @@ export default function MapView() {
   };
 
   /**
-   * Continuously animate local Pokecat positions every 60ms.
-   * Each cat moves slightly in its current direction, occasionally changing course.
+   * Animate Pokecat movement and handle expiration.
+   * Cats move slightly in a random direction every tick.
+   * Cats sometimes stop for 1-4 seconds, then continue moving.
    */
   useEffect(() => {
     const interval = setInterval(() => {
       setWildCats((prev) =>
-        prev.map((cat) => {
-          if (cat.fadingOut) return cat;
+        prev
+          .map((cat) => {
+            if (cat.fadingOut) return cat;
 
-          // Occasionally adjust direction
-          if (Math.random() < 0.05) {
-            cat.direction += (Math.random() - 0.5) * 60;
-          }
+            // Expire cats that reach their lifetime
+            if (Date.now() > cat.expiresAt) return { ...cat, fadingOut: true };
 
-          // Compute new position based on direction
-          const delta = 0.00005;
-          const rad = (cat.direction * Math.PI) / 180;
-          const newLat = cat.lat + Math.sin(rad) * delta;
-          const newLng = cat.lng + Math.cos(rad) * delta;
+            // Initialize movement toggle
+            if (cat.isMoving === undefined) cat.isMoving = Math.random() < 0.5;
+            if (!cat.nextToggle) cat.nextToggle = Date.now() + 1000 + Math.random() * 3000;
 
-          return { ...cat, lat: newLat, lng: newLng };
-        })
+            // Toggle moving/stopped state after 1-4s
+            if (Date.now() > cat.nextToggle) {
+              cat.isMoving = !cat.isMoving;
+              cat.nextToggle = Date.now() + 1000 + Math.random() * 3000;
+            }
+
+            if (cat.isMoving) {
+              // Small random direction changes
+              if (Math.random() < 0.05) cat.direction += (Math.random() - 0.5) * 60;
+              const delta = 0.00005;
+              const rad = (cat.direction * Math.PI) / 180;
+              return {
+                ...cat,
+                lat: cat.lat + Math.sin(rad) * delta,
+                lng: cat.lng + Math.cos(rad) * delta,
+                isMoving: cat.isMoving,
+                nextToggle: cat.nextToggle,
+              };
+            }
+
+            return { ...cat, isMoving: cat.isMoving, nextToggle: cat.nextToggle };
+          })
+          .filter((cat) => !cat.fadingOut) // remove expired cats
       );
-    }, 60); // ~16 FPS
+    }, 60); // ~16fps
+
     return () => clearInterval(interval);
   }, []);
 
@@ -175,9 +198,9 @@ export default function MapView() {
       />
       {userPosition && <FlyToUser position={userPosition} />}
 
-      {wildCats.map((pc) => (
+      {wildCats.map((pc, idx) => (
         <Marker
-          key={pc.id}
+          key={[pc.id, idx].join("-")}
           position={[pc.lat, pc.lng]}
           icon={createIcon(pc.iconUrl)}
         >

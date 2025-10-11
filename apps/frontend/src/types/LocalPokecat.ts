@@ -5,4 +5,6 @@ export interface LocalPokecat extends Pokecat {
   originLng: number;
   direction: number;
   fadingOut?: boolean;
+  isMoving?: boolean;
+  nextToggle?: number;
 }

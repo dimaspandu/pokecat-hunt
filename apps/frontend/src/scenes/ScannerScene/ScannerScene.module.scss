@@ -31,7 +31,10 @@
     @media (max-width: 640px) {
       border: 0;
       border-radius: 0;
+      bottom: 0;
+      left: 0;
       position: fixed;
+      right: 0;
       top: 0;
       z-index: -1;
     }
@@ -39,11 +42,14 @@
 
   &__object-detector {
     border: dashed 1px #ffef24;
+    bottom: 0.75rem;
     color: transparent;
     display: none;
     height: calc(100vh - 1.5rem);
+    left: 0.75rem;
     width: calc(100% - 1.5rem);
     position: fixed;
+    right: 0.75rem;
     top: 0.75rem;
 
     @media (max-width: 640px) {
