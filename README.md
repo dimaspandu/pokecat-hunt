@@ -28,7 +28,9 @@ The backend intentionally simulates **race conditions**, such as when multiple p
 
 ## Demo
 
-![Demo](./screenshots/journey-demo.mp4)
+> Note: This demo is **standalone** and does not connect to any backend or database. All Pokecats, spawning, and captures are simulated locally in the browser.
+
+Live demo is available at: [https://pokecat.fun/](https://pokecat.fun/)
 
 ---
 
