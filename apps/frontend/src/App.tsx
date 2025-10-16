@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, lazy, Suspense } from "react";
 import { useGameStore } from "~/stores/useGameStore";
 import StartHuntModal from "~/components/Fragments/StartHuntModal";
@@ -28,6 +28,7 @@ export default function App() {
     setUser
   } = useGameStore();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [showStartModal, setShowStartModal] = useState(false);
 
@@ -50,6 +51,32 @@ export default function App() {
     setUser({ id: generatedId, name });
     setShowStartModal(false);
   };
+
+  useEffect(() => {
+    // Handle browser back action on the "/" page
+    const handleBackNavigation = (event: PopStateEvent) => {
+      if (location.pathname === "/") {
+        // Prevent going back from "/" and exit the app instead
+        event.preventDefault();
+        window.close(); // Try to close the window/tab
+        // Optional: navigate away from "/" before trying to close
+        // navigate('/some-other-route');
+      }
+    };
+
+    // Listen for popstate event (back button press)
+    window.addEventListener("popstate", handleBackNavigation);
+
+    // Push a state to prevent default browser back behavior when user is on "/"
+    if (location.pathname === "/") {
+      window.history.pushState(null, "", window.location.href);
+    }
+
+    // Cleanup the event listener
+    return () => {
+      window.removeEventListener("popstate", handleBackNavigation);
+    };
+  }, [location, navigate]);
 
   return (
     <div className="app-container">
